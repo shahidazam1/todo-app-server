@@ -7,7 +7,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  create(createUserDto: CreateUserDto) {
+  create(createUserDto) {
     return this.prismaService.user.create({ data: createUserDto });
   }
 
@@ -15,8 +15,8 @@ export class UserService {
     return this.prismaService.user.findMany();
   }
 
-  findByEmail(email: string) {
-    return this.prismaService.user.findUnique({ where: { email } });
+  findByEmail(email) {
+    return this.prismaService.user.findUnique({ where: { email: email } });
   }
 
   findOne(id: number) {
@@ -28,6 +28,6 @@ export class UserService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.prismaService.user.delete({ where: { id } });
   }
 }
